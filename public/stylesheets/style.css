@@ -130,6 +130,7 @@ main > div,
   display: flex;
   flex-wrap: wrap;
   margin: 20px 0;
+  gap: 1rem;
 }
 
 article.item {
@@ -149,6 +150,10 @@ article.item > div {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+article.item li {
+  margin: 1rem 0rem;
+  font-weight: bold;
 }
 
 article.item a,
