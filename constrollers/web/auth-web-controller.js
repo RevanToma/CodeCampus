@@ -1,30 +1,43 @@
 const User = require("./../../models/mysql/user-model");
-const flash = require("express-flash");
+const bcrypt = require("bcrypt");
+
 module.exports = {
   home: async (req, res) => {
+    if (req.user) {
+      return res.redirect("/profile");
+    }
     res.render("auth/home", { title: "logga in / registrera" });
   },
   registerUser: async (req, res) => {
     await User.sync();
     const username = req.body.username;
-    const password = req.body.password;
-    // TODO: hash the password before storing it, don't store plaintext passwords
-    // const passwordHash = someHashFunction(password);
 
     const userExist = await User.findOne({ where: { username } });
 
-    if (userExist !== null) {
-      req.flash("info", "Username already exists");
-      res.redirect("/");
+    if (userExist) {
+      req.session.flash = { type: "danger", message: "User already exists" };
+      res.redirect("/auth");
       return;
     }
+    if (req.body.password !== req.body.confirmPassword) {
+      req.session.flash = {
+        type: "danger",
+        message: "passwords does not match!",
+      };
+    }
+    const passwordHash = await bcrypt.hash(req.body.password, 10);
 
-    await User.create({
+    const user = await User.create({
       username,
-      passwordHash: password, // replace this with passwordHash when you have a hash function
+      passwordHash,
     });
+    if (user) {
+      req.session.flash = { type: "success", message: "User Created" };
+    }
 
-    req.flash("info", "User created");
-    res.redirect("/");
+    res.redirect("/profile");
+  },
+  loginUser: async (err, req, res, next) => {
+    res.redirect("/profile");
   },
 };

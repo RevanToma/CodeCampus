@@ -1,0 +1,41 @@
+<h2>Välkommen {{user.username}}</h2>
+<p>Här är dina startade lärostigar. Lycka till nu!</p>
+
+{{#each paths}}
+  <div>
+
+    <div class="path">
+      <h3>{{learningPath.title}}</h3>
+      <p>{{learningPath.description}}</p>
+      <li>
+
+        {{#each learningPath.steps}}
+
+          <ol>
+
+            <li>
+              <p>
+                <input
+                  type="checkbox"
+                  class="complete-step"
+                  data-step-id="{{_id}}"
+                  data-learning-path-id="{{step._id}}"
+                />
+                <b>{{title}}</b>
+              </p>
+              <p>{{title}}</p>
+              <p><i>
+
+                  {{description}}
+                </i></p>
+              <p>Link:<a href="{{link}}" target="_blank">{{link}}</a></p>
+            </li>
+
+          </ol>
+
+        {{/each}}
+      </li>
+      <hr />
+    </div>
+  </div>
+{{/each}}

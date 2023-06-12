@@ -3,23 +3,20 @@
   {{#each learningPaths}}
     <article class="item">
       <div>
-        <p><b>{{title}}</b></p>
-        <p>Uppskattat Tid<i>
+        <p><b>{{this.title}}</b></p>
+        <p>Uppskattat Tid <i>{{this.estimatedHours}}</i></p>
+        <p><i>{{this.description}}</i></p>
 
-        {{estimatedHours}}h</p>
-        </i>
-        <p><i>{{description}}</i></p>
-
-        <ol>
-            {{#each steps}}
-            <li>
-                {{this}}
-            </li>
-            {{/each}}
-        </ol>
+        {{#if ../user}}
+          <form action="/profile/start-path/{{this._id}}" method="post">
+            <button type="submit" class="btn">Starta</button>
+          </form>
+        {{else}}
+          <p>
+            <a href="/auth">Logga in</a> om du vill starta denna lärostig
+          </p>
+        {{/if}}
       </div>
-
     </article>
   {{/each}}
-
 </div>

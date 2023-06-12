@@ -14,14 +14,23 @@
 
     <nav>
       <a href="/">Start</a>
-      <a href="/auth">Logga in</a>
+      {{#if user}}
+        <a href="/profile">Profil</a>
+      {{else}}
+        <a href="/auth">Logga in</a>
+      {{/if}}
 
     </nav>
 
     <main>
 
-      {{#if messages.info}}
-        <span>{{messages.info}}</span>
+      {{#if flash}}
+        <p class="flash {{flash.type}}">{{flash.message}}
+
+          <span class="close-flash">X</span>
+
+        </p>
+
       {{/if}}
       {{{body}}}
     </main>
@@ -29,5 +38,6 @@
     <footer>
       Footer text here...
     </footer>
+    <script src="/js/script.js"></script>
   </body>
 </html>

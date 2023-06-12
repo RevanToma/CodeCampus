@@ -13,7 +13,15 @@ const learningPathSchema = new mongoose.Schema({
     type: Number,
     required: [true, "A path must have an estimated hours"],
   },
-  steps: [String],
+  steps: [
+    {
+      title: String,
+      done: Boolean,
+      description: String,
+      link: String,
+      comment: String,
+    },
+  ],
 });
 
 module.exports = mongoose.model("LearningPath", learningPathSchema);
