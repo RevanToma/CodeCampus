@@ -7,12 +7,9 @@
     <div class="path">
       <h3>{{learningPath.title}}</h3>
       <p>{{learningPath.description}}</p>
-      <li>
+      <ol>
 
-        {{#each learningPath.steps}}
-
-          <ol>
-
+        {{#each learningPath.steps}}          
             <li>
               <p>
                 <input
@@ -20,20 +17,16 @@
                   class="complete-step"
                   data-step-id="{{_id}}"
                   data-learning-path-id="{{step._id}}"
-                />
-                <b>{{title}}</b>
-              </p>
-              <p>{{title}}</p>
-              <p><i>
+                /> <b>{{title}}</b>    
+                </p>
 
-                  {{description}}
-                </i></p>
-              <p>Link:<a href="{{link}}" target="_blank">{{link}}</a></p>
+                <p><i>{{description}}</i></p>           
+              <p>Link: <a href="{{link}}" target="_blank">{{link}}</a></p>
             </li>
 
+        {{/each}}
           </ol>
 
-        {{/each}}
       </li>
       <hr />
     </div>

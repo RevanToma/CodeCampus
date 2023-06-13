@@ -1,4 +1,4 @@
-const User = require("./../../models/mysql/user-model");
+const User = require("../../models/mysql/user-model");
 const bcrypt = require("bcrypt");
 
 module.exports = {
@@ -6,24 +6,23 @@ module.exports = {
     if (req.user) {
       return res.redirect("/profile");
     }
-    res.render("auth/home", { title: "logga in / registrera" });
+    res.render("login/home", { title: "logga in / registrera" });
   },
   registerUser: async (req, res) => {
-    await User.sync();
     const username = req.body.username;
 
     const userExist = await User.findOne({ where: { username } });
 
     if (userExist) {
       req.session.flash = { type: "danger", message: "User already exists" };
-      res.redirect("/auth");
-      return;
+      return res.redirect("/login");
     }
     if (req.body.password !== req.body.confirmPassword) {
       req.session.flash = {
         type: "danger",
         message: "passwords does not match!",
       };
+      return res.redirect("/login");
     }
     const passwordHash = await bcrypt.hash(req.body.password, 10);
 
@@ -35,7 +34,7 @@ module.exports = {
       req.session.flash = { type: "success", message: "User Created" };
     }
 
-    res.redirect("/profile");
+    res.redirect("/login");
   },
   loginUser: async (err, req, res, next) => {
     res.redirect("/profile");

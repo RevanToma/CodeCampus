@@ -1,4 +1,4 @@
-const LearningPath = require("../../models/learning-path-model");
+const LearningPath = require("../../models/mongodb/learning-path-model");
 
 module.exports = {
   home: async (req, res) => {

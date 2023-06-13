@@ -38,7 +38,7 @@ const requireAuth = (req, res, next) => {
     type: "danger",
     text: "Du måste logga in för att se din profil",
   };
-  res.redirect("/auth");
+  res.redirect("/login");
 };
 
 const setUser = (req, res, next) => {

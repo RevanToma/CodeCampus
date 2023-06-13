@@ -3,9 +3,9 @@
   {{#each learningPaths}}
     <article class="item">
       <div>
-        <p><b>{{this.title}}</b></p>
-        <p>Uppskattat Tid <i>{{this.estimatedHours}}</i></p>
-        <p><i>{{this.description}}</i></p>
+        <p><b>{{title}}</b></p>
+        <p>Uppskattat Tid <i>{{estimatedHours}}</i></p>
+        <p><i>{{description}}</i></p>
 
         {{#if ../user}}
           <form action="/profile/start-path/{{this._id}}" method="post">
@@ -13,7 +13,7 @@
           </form>
         {{else}}
           <p>
-            <a href="/auth">Logga in</a> om du vill starta denna lärostig
+            <a href="/login">Logga in</a> om du vill starta denna lärostig
           </p>
         {{/if}}
       </div>

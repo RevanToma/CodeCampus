@@ -1,6 +1,5 @@
 require("dotenv").config();
 var createError = require("http-errors");
-const flash = require("express-flash");
 const session = require("express-session");
 var express = require("express");
 var path = require("path");
@@ -8,9 +7,6 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const exphbs = require("express-handlebars");
 const { passport, setUser } = require("./utils/passport");
-var homeRouter = require("./routes/web/home-web-router");
-var authRouter = require("./routes/web/auth-web-router");
-var profileRouter = require("./routes/web/profile-web-router");
 
 require("./config/moongose");
 require("./config/sequelize");
@@ -28,7 +24,7 @@ app.engine(
   })
 );
 app.set("view engine", "hbs");
-app.use(flash());
+
 app.use(logger("dev"));
 app.use(cookieParser());
 app.use(express.json());
@@ -47,6 +43,7 @@ app.use(passport.session());
 app.use(setUser);
 
 app.use(express.static(path.join(__dirname, "public")));
+
 app.use((req, res, next) => {
   req.flash = (type, message) => {
     req.session.flash = { type, message };
@@ -64,9 +61,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/", homeRouter);
-app.use("/auth", authRouter);
-app.use("/profile", profileRouter);
+app.use("/", require("./routes/web/home-web-router"));
+app.use("/login", require("./routes/web/login-web-router"));
+app.use("/profile", require("./routes/web/profile-web-router"));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
