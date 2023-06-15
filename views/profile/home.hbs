@@ -1,33 +1,42 @@
-<h2>Välkommen {{user.username}}</h2>
-<p>Här är dina startade lärostigar. Lycka till nu!</p>
-
 {{#each paths}}
   <div>
-
     <div class="path">
       <h3>{{learningPath.title}}</h3>
+      <p><b>Steg: <span class="steps-count"></span> |<span class="progress-percent"></span></b></p>
+      <div class="progress-bar-container">
+        <div class="progress-bar"></div>
+      </div>
       <p>{{learningPath.description}}</p>
       <ol>
+        {{#each learningPath.steps}}
+          <li>
+            <p>
+              {{#if done}}
+              <input
+                type="checkbox"
+                class="complete-step"   
+                checked 
+                data-step-id="{{_id}}"
+                data-path-id="{{../_id}}"
+                data-done="true"
+              /> 
+              {{else}}
+              <input
+                type="checkbox"
+                class="complete-step"               
+                data-step-id="{{_id}}"
+                data-path-id="{{../_id}}"
+                data-done="false"
+              /> 
+              {{/if}}
+              <b>{{title}}</b>    
+            </p>
 
-        {{#each learningPath.steps}}          
-            <li>
-              <p>
-                <input
-                  type="checkbox"
-                  class="complete-step"
-                  data-step-id="{{_id}}"
-                  data-learning-path-id="{{step._id}}"
-                /> <b>{{title}}</b>    
-                </p>
-
-                <p><i>{{description}}</i></p>           
-              <p>Link: <a href="{{link}}" target="_blank">{{link}}</a></p>
-            </li>
-
+            <p><i>{{description}}</i></p>           
+            <p>Link: <a href="{{link}}" target="_blank">{{link}}</a></p>
+          </li>
         {{/each}}
-          </ol>
-
-      </li>
+      </ol>
       <hr />
     </div>
   </div>

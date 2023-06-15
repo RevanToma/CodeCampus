@@ -5,6 +5,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const cors = require("cors");
 const exphbs = require("express-handlebars");
 const { passport, setUser } = require("./utils/passport");
 
@@ -26,6 +27,7 @@ app.engine(
 app.set("view engine", "hbs");
 
 app.use(logger("dev"));
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -64,6 +66,9 @@ app.use((req, res, next) => {
 app.use("/", require("./routes/web/home-web-router"));
 app.use("/login", require("./routes/web/login-web-router"));
 app.use("/profile", require("./routes/web/profile-web-router"));
+app.use("/community", require("./routes/web/community-web-router"));
+app.use("/users", require("./routes/web/users-web-router"));
+app.use("/api/profile", require("./routes/api/profile-api-router"));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
