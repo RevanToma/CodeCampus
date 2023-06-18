@@ -36,7 +36,7 @@ module.exports = {
 
     res.redirect("/login");
   },
-  loginUser: async (err, req, res, next) => {
+  loginUser: async (req, res, next) => {
     res.redirect("/profile");
   },
 };

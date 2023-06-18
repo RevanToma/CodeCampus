@@ -7,7 +7,7 @@ module.exports = {
     const userLearningPaths = await userLearningPathModel
       .findOne({ userId })
       .lean();
-    const paths = userLearningPaths.learningPaths;
+    const paths = userLearningPaths ? userLearningPaths.learningPaths : [];
 
     res.render("profile/home", { title: "Din Profil", paths });
   },
